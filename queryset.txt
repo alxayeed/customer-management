@@ -1,0 +1,29 @@
+1.all()
+>>>customer = Customer.objects.all()
+
+>>>print(customers) #all customers
+>>>print(customers[1]) #2nd customer
+>>>print(customers[1].email) #2nd customers email
+
+2.first()
+>>>print(Customers.objects.first()) #first customer
+
+3.last()
+>>>print(Customers.objects.last())  #last customer
+
+4.get()
+>>>'customer = Customer.objects.get(name='Abdullah')
+
+5.order_set
+>>> Customer.order_set.all()
+
+6.filter()
+
+7.order_by()
+
+ 
+
+
+
+
+
