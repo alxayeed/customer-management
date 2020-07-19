@@ -30,7 +30,7 @@ class Order(models.Model):
         ('Out of Stock', 'Stock Out'),
         ('Delivered', 'Delivered'),
     )
-    # customer = models.ForeignKey(Customer, on_delete=CASCADE)
-    # product = models.ForeignKey(Product, on_delete=CASCADE)
+    customer = models.ForeignKey(Customer,null=True, on_delete=models.CASCADE) #Order will be deleted if the customer is deleted
+    product = models.ForeignKey(Product, null=True,on_delete=models.SET_NULL) #if the Product is deleted,order will remain same with a null value for product
     date_ordered = models.DateTimeField(auto_now_add=True, null=True)
     status = models.CharField(max_length=50, null=True, choices=STATUS)
