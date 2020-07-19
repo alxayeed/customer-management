@@ -16,12 +16,14 @@
             <a class="btn btn-primary btn-sm btn-block" href="">Create Customer</a>
             <table table table-sm>
                 <tr>
+
                     <th>Customers</th>
                     <th>Phone</th>
                 </tr>
                 {% for i in customers %}
                 <tr>
-                    <td>{{ i.name }}</td>
+                    <td><a style="text-decoration: none; text" href="{% url 'customer' i.id %}">{{ i.name }}</a></td>
+                    
                     <td>{{ i.phone }}</td>
                 </tr>
                 {% endfor %}
