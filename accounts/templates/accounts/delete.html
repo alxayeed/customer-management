@@ -2,10 +2,19 @@
 {% load static %}
 
 {% block content %}
-<p>Are you sure you want to delete <b><i>{{ order }}</b></i> ?</p>
-    <form action="{% url 'delete_order' order.id %}" method="POST">
-        {% csrf_token %}
-        <a href="{% url 'home' %}">Cancel</a>
-        <input type="submit" name="Confirm">
-    </form>
+<br>
+<div class="container" style="padding-left: 20%;">
+<div class="row" style="text-align: center;">
+    <div class="">
+        <div class="card card-body">
+            <p>Are you sure you want to delete <b><i>{{ order }}</b></i> ?</p>
+                <form action="{% url 'delete_order' order.id %}" method="POST">
+                    {% csrf_token %}
+                    <a class="btn btn-outline-info btn-sm- btn-block" href="{% url 'home' %}">Cancel</a>
+                    <input class="btn btn-outline-danger btn-sm- btn-block" type="submit" name="Confirm">
+                </form>
+        </div>
+    </div>
+</div>
+</div>
 {% endblock %}
