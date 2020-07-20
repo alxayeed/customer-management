@@ -46,6 +46,7 @@ class Order(models.Model):
     product = models.ForeignKey(Product, null=True,on_delete=models.SET_NULL) #if the Product is deleted,order will remain same with a null value for product
     date_ordered = models.DateTimeField(auto_now_add=True, null=True)
     status = models.CharField(max_length=50, null=True, choices=STATUS)
+    note = models.CharField(max_length=500, null=True)
    
 
     def __str__(self):
