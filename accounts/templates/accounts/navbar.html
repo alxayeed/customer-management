@@ -15,10 +15,11 @@
       </ul>
       <li class="nav-item dropdown navbar-nav ml-auto">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Account
+        {% if user %}
+        Hello {{ request.user }}
+        {% endif %}
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          
           <a class="dropdown-item" href="{% url 'signup' %}">Signup</a>
           <a class="dropdown-item" href="{% url 'login' %}">Login</a>
           <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
