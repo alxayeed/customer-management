@@ -7,7 +7,7 @@
         max-width: 200px;
         max-height: 200px;
         margin: 0 auto;
-        border-radius: 50%;
+        border-radius: 20%;
     }
 </style>
 
@@ -18,7 +18,9 @@
             <a href="{% url 'home' %}" class="btn btn-warning">&#8592; Back To Home</a>
             <hr>
             <h3 style="text-align: center;">Account Settings</h3>
-            <p>{{request.user.customer}}</p>
+            {% for m in messages %}
+                <p style="background-color: aqua; text-align: center;">{{m}}</p>
+            {% endfor %}
             <hr>
             <img src="{{request.user.customer.profile_pic.url}}" alt="" class="profile-pic">
         </div>
@@ -27,7 +29,9 @@
     <div class="col-md-9">
         <div class="card card-body">
 
-            <form method="POST" action="">
+            <form method="POST" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form.as_p}}
                 <input type="submit" class="btn btn-primary" name="Update Information">
             </form>
         </div>
