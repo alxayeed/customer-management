@@ -68,14 +68,7 @@ def createUser(request):
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
-
-            group = Group.objects.get(name='customer')
-            user.groups.add(group)
-            # group.user_set(user) does the same thing
-
-            Customer.objects.create(
-                user= user,
-            )
+           
             messages.success(request, f'Account Succesfully Created for {username}')
             return redirect('login')
         

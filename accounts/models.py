@@ -7,7 +7,7 @@ class Customer(models.Model):
     name = models.CharField(max_length=200, null=True)
     phone = models.CharField(max_length=15, null=True)
     email = models.CharField(max_length=50, null=True)
-    profile_pic = models.ImageField(null=True, blank=True)
+    profile_pic = models.ImageField(default="default.jpeg", null=True, blank=True)
     date_joined = models.DateTimeField(auto_now_add=True, null=True, blank= True)
 
 
