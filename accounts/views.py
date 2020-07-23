@@ -11,11 +11,13 @@ from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
 from .filters import OrderFilter
+from .decorators import unauthenticated_user, allowed_users, admin_only
 
 # Create your views here.
 
 
 @login_required(login_url='login')
+@admin_only
 def home(request):
     orders = Order.objects.all()
     customers = Customer.objects.all()
@@ -50,27 +52,24 @@ def createUser(request):
         
         context = {'form': form}
         return render(request, 'accounts/signup.html', context)
-
+@unauthenticated_user
 def loginUser(request):
-    if request.user.is_authenticated:
-        return redirect('home')
-    else:
-        if request.method == "POST":
-            username = request.POST.get('username')
-            password = request.POST.get('password')
-            user = authenticate(request, username=username, password=password)
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
 
-            if user is not None:
-                # with connection.cursor() as cursor:
-                #     cursor.execute("SELECT id FROM User Where username= %s",[username])
-                #     pk = cursor.fetchone()
-                    login(request, user)
-                    return redirect('home')
+        if user is not None:
+            # with connection.cursor() as cursor:
+            #     cursor.execute("SELECT id FROM User Where username= %s",[username])
+            #     pk = cursor.fetchone()
+            login(request, user)
+            return redirect('home')
 
-            else:
-                messages.info(request,'Username or Password is incorrect')
+        else:
+            messages.info(request,'Username or Password is incorrect')
 
-        return render(request, 'accounts/login.html')
+    return render(request, 'accounts/login.html')
 
 @login_required(login_url='login')
 def logoutUser(request):
@@ -78,6 +77,7 @@ def logoutUser(request):
     return redirect('login')
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def customer(request, pk):
     customer = Customer.objects.get(id=pk)
     orders = customer.order_set.all()
@@ -91,6 +91,7 @@ def customer(request, pk):
     return render(request, 'accounts/customer.html', context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def product(request):
     products = Product.objects.all()
 
@@ -98,6 +99,7 @@ def product(request):
     return render(request, 'accounts/product.html', context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def createOrder(request, pk):
     OrderFromSet = inlineformset_factory(Customer, Order, fields=('product', 'status'))
     customer = Customer.objects.get(id=pk)
