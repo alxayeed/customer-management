@@ -30,6 +30,10 @@ def home(request):
     
     return render(request, 'accounts/index.html', context)
 
+
+def userHome(request):
+    return render(request, 'accounts/user_home.html')
+
 def createUser(request):
     if request.user.is_authenticated:
         return redirect('home')
