@@ -7,6 +7,7 @@ urlpatterns = [
     path('signup/',createUser, name='signup'),
     path('login/',loginUser, name='login'),
     path('logout/',logoutUser, name='logout'),
+    path('account/',acountSettings, name='account'),
     path('product/',product, name='product'),
     path('user/',userHome, name='user_home'),
     path('customer/<int:pk>/', customer, name='customer'),

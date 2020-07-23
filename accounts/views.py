@@ -44,6 +44,13 @@ def userHome(request):
     context = {'orders': orders, 'total_orders':total_orders, 'delivered': delivered, 'pending': pending}
     return render(request, 'accounts/user_home.html', context)
 
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
+def acountSettings(request):
+    context = {}
+    return render(request, 'accounts/account_settings.html', context)
+
 @unauthenticated_user
 def createUser(request):
     form = CreateUserForm()
