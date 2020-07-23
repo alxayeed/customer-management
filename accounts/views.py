@@ -33,9 +33,16 @@ def home(request):
     
     return render(request, 'accounts/index.html', context)
 
-
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
 def userHome(request):
-    return render(request, 'accounts/user_home.html')
+    orders = request.user.customer.order_set.all()
+    total_orders = orders.count()
+    delivered = orders.filter(status='Delivered').count()
+    pending = orders.filter(status='Pending').count()
+
+    context = {'orders': orders, 'total_orders':total_orders, 'delivered': delivered, 'pending': pending}
+    return render(request, 'accounts/user_home.html', context)
 
 @unauthenticated_user
 def createUser(request):
@@ -50,6 +57,10 @@ def createUser(request):
             group = Group.objects.get(name='customer')
             user.groups.add(group)
             # group.user_set(user) does the same thing
+
+            Customer.objects.create(
+                user= user,
+            )
             messages.success(request, f'Account Succesfully Created for {username}')
             return redirect('login')
         
@@ -122,6 +133,7 @@ def createOrder(request, pk):
     return render(request, 'accounts/order_form.html', context)
     
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def updateOrder(request, pk):
     order = Order.objects.get(id=pk)
     form = OrderForm(instance=order)

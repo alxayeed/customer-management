@@ -22,9 +22,14 @@
                 </tr>
                 {% for i in customers %}
                 <tr>
-                    <td><a style="text-decoration: none;" href="{% url 'customer' i.id %}">{{ i.name }}</a></td>
+                    <td><a style="text-decoration: none;" href="{% url 'customer' i.id %}">
+                        {% if i.name %}{{ i.name }}
+                        {% else %}{{ i.user }}</a></td>
+                        {% endif %}
                     
-                    <td>{{ i.phone }}</td>
+                    <td>{% if i.phone %}{{ i.phone }}
+                        {% else %}{{ 'Not Provided' }}</a></td>
+                        {% endif %}</td>
                 </tr>
                 {% endfor %}
             </table>
