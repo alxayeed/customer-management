@@ -4,9 +4,10 @@ from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,Group
 from django.db import connection
 from django.contrib.auth.decorators import login_required
+
 
 from .models import *
 from .forms import *
@@ -36,22 +37,25 @@ def home(request):
 def userHome(request):
     return render(request, 'accounts/user_home.html')
 
+@unauthenticated_user
 def createUser(request):
-    if request.user.is_authenticated:
-        return redirect('home')
-    else:
-        form = CreateUserForm()
+    form = CreateUserForm()
 
-        if request.method == 'POST':
-            form = CreateUserForm(request.POST)
-            if form.is_valid():
-                form.save()
-                username = form.cleaned_data.get('username')
-                messages.success(request, f'Account Succesfully Created for {username}')
-                return redirect('login')
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            username = form.cleaned_data.get('username')
+
+            group = Group.objects.get(name='customer')
+            user.groups.add(group)
+            # group.user_set(user) does the same thing
+            messages.success(request, f'Account Succesfully Created for {username}')
+            return redirect('login')
         
-        context = {'form': form}
-        return render(request, 'accounts/signup.html', context)
+    context = {'form': form}
+    return render(request, 'accounts/signup.html', context)
+
 @unauthenticated_user
 def loginUser(request):
     if request.method == "POST":

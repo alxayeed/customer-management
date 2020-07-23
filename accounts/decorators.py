@@ -32,5 +32,5 @@ def admin_only(view_func):
             if group == 'customer':
                 return redirect('user_home')
             if group == 'admin':
-                return HttpResponse('You are not authorized to view this page')
+                return view_func(request, *args, **kwargs)
         return wrapper_func
