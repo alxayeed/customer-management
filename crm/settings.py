@@ -132,3 +132,12 @@ STATICFILES_DIRS = [
 
 #specifying directory where to save uploaded pictures
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/img/')
+
+#SMTP configuration
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = '587'
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = '16103213@iubat.edu'
+EMAIL_HOST_PASSWORD = 'inbxhxmbquruxwsd'
