@@ -87,6 +87,7 @@ def loginUser(request):
             #     cursor.execute("SELECT id FROM User Where username= %s",[username])
             #     pk = cursor.fetchone()
             login(request, user)
+            
             return redirect('home')
 
         else:
