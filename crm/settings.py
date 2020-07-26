@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from crm.credentials import hideme
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'i^cke=-rcbnu4k%0@x0dl=&ws5u^uvwhm#-1lbmv^im-xgbh*b'
+SECRET_KEY = hideme.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -84,8 +85,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'demo_1',
-        'USER': 'alxayeed',
-        'PASSWORD': 12345678,
+        'USER': hideme.get('DB_USER'),
+        'PASSWORD': hideme.get('DB_PASSWORD'),
         'HOST': 'database-1.cuuwuh0in6oy.us-east-1.rds.amazonaws.com',
         'PORT': '5432',
     }
