@@ -78,18 +78,18 @@ WSGI_APPLICATION = 'crm.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # }
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'demo_1',
-        'USER': hideme.get('DB_USER'),
-        'PASSWORD': hideme.get('DB_PASSWORD'),
-        'HOST': 'database-1.cuuwuh0in6oy.us-east-1.rds.amazonaws.com',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'demo_1',
+    #     'USER': hideme.get('DB_USER'),
+    #     'PASSWORD': hideme.get('DB_PASSWORD'),
+    #     'HOST': 'database-1.cuuwuh0in6oy.us-east-1.rds.amazonaws.com',
+    #     'PORT': '5432',
+    # }
 }
 
 
@@ -148,5 +148,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = '587'
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = '16103213@iubat.edu'
-EMAIL_HOST_PASSWORD = 'inbxhxmbquruxwsd'
+EMAIL_HOST_USER = hideme.get('EMAIL_USER')
+EMAIL_HOST_PASSWORD = hideme.get('EMAIL_KEY')
+
+

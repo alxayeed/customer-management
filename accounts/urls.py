@@ -12,7 +12,7 @@ urlpatterns = [
     path('product/',product, name='product'),
     path('user/',userHome, name='user_home'),
     path('customer/<int:pk>/', customer, name='customer'),
-    path('create-order/<int:pk>/',createOrder, name="create_order"),
+    path('create-order/<str:pk>/',createOrder, name="create_order"),
     path('update-order/<int:pk>/',updateOrder, name="update_order"),
     path('delete-order/<int:pk>/',deleteOrder, name="delete_order"),
     path('reset-password/',

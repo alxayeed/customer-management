@@ -13,11 +13,6 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'product' %}">Product</a>
         </li>
-        {% else %}
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'account' %}">Account Settings</a>
-        </li>
-      </ul>
       {% endif %}
       <li class="nav-item dropdown navbar-nav ml-auto">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -26,14 +21,18 @@
         {% endif %}
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          {% if not request.user %}
-          <a class="dropdown-item" href="{% url 'signup' %}">Signup</a>
-          <a class="dropdown-item" href="{% url 'login' %}">Login</a>
-          {% endif %}
-          <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="/admin/">Admin</a>
-        </div>
+            {% if not request.user %}
+            <a class="dropdown-item" href="{% url 'signup' %}">Signup</a>
+            <a class="dropdown-item" href="{% url 'login' %}">Login</a>
+            {% endif %}
+            <a class="dropdown-item" href="{% url 'account' %}">Account Settings</a>
+            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+            {% if not request.user %}
+              <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/admin/">Admin</a>
+              </div>
+            {% endif %}
+        
       </li>
     </div>
   </nav>

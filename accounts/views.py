@@ -123,10 +123,11 @@ def product(request):
     return render(request, 'accounts/product.html', context)
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin'])
+# @allowed_users(allowed_roles=['admin','customer'])
 def createOrder(request, pk):
     OrderFromSet = inlineformset_factory(Customer, Order, fields=('product', 'status'))
-    customer = Customer.objects.get(id=pk)
+    customer = Customer.objects.get(user_id=pk)
+    print(customer)
     formset = OrderFromSet(queryset=Order.objects.none(), instance=customer)
     # form = OrderForm(initial={'customer':customer})
     if request.method == "POST":
@@ -145,7 +146,9 @@ def createOrder(request, pk):
 @allowed_users(allowed_roles=['admin'])
 def updateOrder(request, pk):
     order = Order.objects.get(id=pk)
+    print(order)
     form = OrderForm(instance=order)
+    print(form)
     context = {'form': form}
     if request.method == "POST":
         form = OrderForm(request.POST, instance=order)
